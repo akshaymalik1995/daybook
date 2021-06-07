@@ -1,14 +1,13 @@
 import React, { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
+
+if (!localStorage.entries) {
+    localStorage.setItem('entries', JSON.stringify([]))
+}
+
 const initialState = {
-    entries: [
-        
-    ], 
-    tags: [
-        {id : 1 , tag : "General"},
-        {id : 2 , tag : "Love"},
-        {id : 3 , tag : "Work"},
-    ]
+    entries: JSON.parse(localStorage.entries), 
+    
 }
 
 export const GlobalContext = createContext(initialState)
@@ -29,14 +28,26 @@ export const GlobalProvider = ({ children }) => {
             payload: id
         })
     }
+    function editEntry(id, entry) {
+        dispatch({
+            type: 'EDIT_ENTRY',
+            payload: { id: id, entry: entry }
+        })
+    }
+
+    
+    localStorage.entries = JSON.stringify(state.entries)
+    
 
     return (
+       
         <GlobalContext.Provider value={
             {
                 entries: state.entries,
-                tags: state.tags,
+                
                 addEntry,
                 deleteEntry,
+                editEntry, 
             }
         }>
             {children}

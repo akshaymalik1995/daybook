@@ -1,39 +1,39 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { GlobalContext } from "../context/GlobalState"
-import { v4 } from 'uuid'
+import {v4} from 'uuid'
 
-
-export const CreateEntry = () => {
+export const EditEntry = (props) => {
     
     const history = useHistory()
-    const today = new Date()
     
-    const {addEntry} = useContext(GlobalContext)
+    const {editEntry, entries} = useContext(GlobalContext)
     
+    const [entry] = entries.filter(entry => entry.id === props.match.params.id)
     
 
 
-    
-    const [text, setText] = useState("")
-    const [tags, setTags] = useState("")
+    const newID = v4()
+    const viewPath = `/view/${newID}`
+    const [text, setText] = useState(entry.text)
+    const [tags, setTags] = useState(entry.tags)
 
     const onSubmit = (event) => {
         event.preventDefault()
         
         const newEntry = {
-            id: v4(),
+            id: newID,
             
             text,
             tags,
-            date: today,
-            
+            date: entry.date,
+            time: entry.time
         }
         
-        addEntry(newEntry)
+        editEntry(props.match.params.id, newEntry)
         setText("")
         setTags("")
-        history.push("/")
+        history.push(viewPath)
         }
 
 
@@ -57,12 +57,13 @@ export const CreateEntry = () => {
                     </div>
 
                     <div className='form-group'>
-                        <input  className='form-control' type="text"
+                    <div className='form-group'>
+                        <input className="form-control" type="text"
                             value={tags}
-                            placeholder="Tags"
                             onChange={event => setTags(event.target.value)}
                         />
                         
+                    </div>
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>

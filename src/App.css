@@ -3,3 +3,9 @@ main {
   margin: auto;
   margin-right: auto;
 }
+
+p {
+  font-size: large;
+  font-family: cursive;
+  text-align: justify;
+}
