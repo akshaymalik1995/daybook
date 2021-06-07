@@ -11,8 +11,11 @@ export const Entries = () => {
             {sortedEntries.map(entry => (
                 <Entry key={entry.id} entry={entry} />
             ))}
-
+            
+            <div className="col-12">
             {sortedEntries.length == 0 ? (<h5>No Entries Available.</h5>) : ""}
+            </div>
+            
 
 
         </div>

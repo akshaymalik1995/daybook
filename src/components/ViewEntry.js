@@ -11,7 +11,7 @@ export const ViewEntry = (props) => {
     const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "Aug", "Oct", "Nov", "Dec"]
     const today = new Date(entry.date)
     const day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate()
-    const month = monthNames[today.getMonth() - 1]
+    const month = monthNames[today.getMonth()]
     const year = today.getFullYear()
     const hours = today.getHours() < 10 ? "0" + today.getHours() : today.getHours()
     const minutes = today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes()
@@ -21,7 +21,7 @@ export const ViewEntry = (props) => {
         <div>
             <div className='row my-5'>
                 <div className="col-12 d-flex justify-content-between">
-                <h5 className=' p-2 '>{date}</h5>
+                <h5 >{date}</h5>
                 <span><Link className="nav-link" to={editPath}><i className='mx-3  fa fa-pencil'></i></Link></span>
                 
                 </div>

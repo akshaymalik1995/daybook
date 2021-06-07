@@ -65,7 +65,7 @@ export const CreateEntry = () => {
                         
                     </div>
 
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-sm btn-primary">Add</button>
                 </form>
             </div>
         </div>

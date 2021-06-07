@@ -15,6 +15,7 @@ export const EditEntry = (props) => {
 
     const newID = v4()
     const viewPath = `/view/${newID}`
+    const oldViewPath = `/view/${entry.id}`
     const [text, setText] = useState(entry.text)
     const [tags, setTags] = useState(entry.tags)
 
@@ -58,7 +59,8 @@ export const EditEntry = (props) => {
 
                     <div className='form-group'>
                     <div className='form-group'>
-                        <input className="form-control" type="text"
+                            <input className="form-control" type="text"
+                            placeholder="Tags"
                             value={tags}
                             onChange={event => setTags(event.target.value)}
                         />
@@ -66,7 +68,8 @@ export const EditEntry = (props) => {
                     </div>
                     </div>
 
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-sm btn-primary">Edit</button>
+                    <a className="btn mx-3 btn-sm btn-danger" href={oldViewPath} role="button">Cancel</a>
                 </form>
             </div>
         </div>
