@@ -1,32 +1,69 @@
-import React, {useContext} from 'react'
-import {GlobalContext} from "../context/GlobalState"
-
+import React, { useContext, useState } from 'react'
+import { GlobalContext } from "../context/GlobalState"
+import {v4} from 'uuid'
 export const CreateEntry = () => {
-    const { tags } = useContext(GlobalContext)
-    console.log(tags)
+    const today = new Date()
+    
+    const { tags, addEntry } = useContext(GlobalContext)
+    const [title, setTitle] = useState("")
+    const [text, setText] = useState("")
+    const [tag, setTag] = useState(tags[0].tag)
+
+    const onSubmit = (event) => {
+        event.preventDefault()
+        const newEntry = {
+            id: v4(),
+            title,
+            text,
+            tag,
+            date : `${today.getDate()}-${today.getMonth()}-${today.getFullYear()}`,
+            time : `${today.getHours()}:${today.getMinutes()}`}
+        console.log(newEntry)
+        addEntry(newEntry)
+        }
+
+
+    
+
+
     return (
         <div className='row my-5'>
             <div className="col-12">
                 <h3>Create Entry</h3>
-                <form>
+                <form onSubmit={onSubmit}>
                     <div className="form-group">
-                       
-                        <input type="email" className="form-control" aria-describedby="emailHelp" placeholder="Enter Title" />
-                      
+
+                        <input type="text"
+                            value={title}
+                            onChange={event => setTitle(event.target.value)}
+                            className="form-control" placeholder="Enter Title" />
+
                     </div>
                     <div className="form-group">
-                       
-                        <textarea type="text" rows="10" className="form-control"  placeholder="Dear Diary" />
+
+                        <textarea
+                            required
+                            value={text}
+                            onChange={event => setText(event.target.value)}
+                            type="text" rows="10" className="form-control" placeholder="Dear Diary" />
                     </div>
 
                     <div className='form-group'>
-                        <select className="form-control">
-                            {tags.map(tag => (<option value={tag.id}>{tag.tag}</option>))}
-                        
+                        <select
+                            className="form-control"
+                            value={tag}
+                            onChange={event => setTag(event.target.value)}>
 
-                    </select>
+                            {tags.map(item => (<option
+                                key={item.id}
+                                value={item.tag}>
+                                {item.tag}
+                            </option>))}
+
+
+                        </select>
                     </div>
-                    
+
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>

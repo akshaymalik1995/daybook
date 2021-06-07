@@ -9,8 +9,11 @@ function App() {
     <GlobalProvider>
  <Header />
       <div className="container">
+        <main>
         <CreateEntry />
         <Entries/>
+        </main>
+        
       </div>
     </GlobalProvider>
     
